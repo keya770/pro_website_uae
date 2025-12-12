@@ -18,21 +18,44 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/configure-pages@v5
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-      - name: Build (Node if present, otherwise static)
+      - name: Build (Next.js / Node if present, otherwise static)
         id: build
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
+
           if [ -f package.json ]; then
-            npm ci
-            npm run build
+            echo "Node project detected"
+
+            # Prefer clean install for CI
+            if [ -f package-lock.json ]; then
+              npm ci
+            else
+              npm install
+            fi
+
+            # Try common build scripts safely
+            if npm run | grep -qE '^  export'; then
+              npm run export
+            elif npm run | grep -qE '^  build'; then
+              npm run build
+            else
+              echo "No build/export script found, skipping build step"
+            fi
+          else
+            echo "Static site detected (no package.json)"
           fi
 
-          if [ -d dist ]; then
+          # Detect output directory in priority order
+          if [ -d out ]; then
+            echo "path=out" >> "$GITHUB_OUTPUT"
+          elif [ -d dist ]; then
             echo "path=dist" >> "$GITHUB_OUTPUT"
           elif [ -d build ]; then
             echo "path=build" >> "$GITHUB_OUTPUT"
@@ -40,7 +63,8 @@ jobs:
             echo "path=." >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ steps.build.outputs.path }}
 
@@ -51,5 +75,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
