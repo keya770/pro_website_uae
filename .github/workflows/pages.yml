@@ -24,43 +24,44 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Build (Next.js / Node if present, otherwise static)
+      - name: Install + Build (inside PRO_WEBSITE)
         id: build
         shell: bash
         run: |
           set -euo pipefail
 
-          if [ -f package.json ]; then
-            echo "Node project detected"
-
-            # Prefer clean install for CI
-            if [ -f package-lock.json ]; then
-              npm ci
-            else
-              npm install
-            fi
-
-            # Try common build scripts safely
-            if npm run | grep -qE '^  export'; then
-              npm run export
-            elif npm run | grep -qE '^  build'; then
-              npm run build
-            else
-              echo "No build/export script found, skipping build step"
-            fi
-          else
-            echo "Static site detected (no package.json)"
+          DIR="PRO_WEBSITE"
+          if [ ! -f "$DIR/package.json" ]; then
+            echo "ERROR: $DIR/package.json not found. Ensure your Next.js project is inside PRO_WEBSITE/."
+            exit 1
           fi
 
-          # Detect output directory in priority order
-          if [ -d out ]; then
-            echo "path=out" >> "$GITHUB_OUTPUT"
-          elif [ -d dist ]; then
-            echo "path=dist" >> "$GITHUB_OUTPUT"
-          elif [ -d build ]; then
-            echo "path=build" >> "$GITHUB_OUTPUT"
+          cd "$DIR"
+
+          if [ -f package-lock.json ]; then
+            npm ci
           else
-            echo "path=." >> "$GITHUB_OUTPUT"
+            npm install
+          fi
+
+          # Prefer export script if present, otherwise build
+          if npm run | grep -qE '^  export'; then
+            npm run export
+          else
+            npm run build
+          fi
+
+          cd -
+
+          # Prefer Next export output
+          if [ -d "$DIR/out" ]; then
+            echo "path=$DIR/out" >> "$GITHUB_OUTPUT"
+          elif [ -d "$DIR/dist" ]; then
+            echo "path=$DIR/dist" >> "$GITHUB_OUTPUT"
+          elif [ -d "$DIR/build" ]; then
+            echo "path=$DIR/build" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=$DIR" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Upload Pages artifact
