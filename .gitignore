@@ -9,3 +9,14 @@ build/
 # Env
 .env
 .env.*
+
+# Node / Next
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Env
+.env
+.env.*
