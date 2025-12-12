@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Testimonial } from "@/lib/content";
+import { withBasePath } from "@/lib/withBasePath";
 
 type Props = {
   testimonial: Testimonial;
@@ -20,7 +21,7 @@ const TestimonialCard = ({ testimonial }: Props) => {
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--color-green)] via-[#1a8a4a] to-[var(--color-green-dark)]" />
       
       {/* Quote icon */}
-      <div className="absolute top-4 right-4 text-5xl text-[var(--color-green)]/10 font-serif">"</div>
+      <div className="absolute top-4 right-4 text-5xl text-[var(--color-green)]/10 font-serif">&quot;</div>
       
       {/* Content */}
       <div className="relative">
@@ -28,11 +29,14 @@ const TestimonialCard = ({ testimonial }: Props) => {
         <div className="flex items-center gap-4 mb-4">
           <div className="relative flex-shrink-0">
             <div className="relative h-14 w-14 rounded-full overflow-hidden ring-2 ring-[var(--color-green)]/20 group-hover:ring-[var(--color-green)]/40 transition-all duration-300">
+              <div className="absolute inset-0 flex items-center justify-center bg-slate-100 text-xs font-semibold text-[var(--color-charcoal)]">
+                {initials}
+              </div>
               <Image
-                src="/medium-shot-smiley-business-man.jpg"
+                src={withBasePath("/medium-shot-smiley-business-man.jpg")}
                 alt={testimonial.name}
                 fill
-                className="object-cover"
+                className="relative z-10 object-cover"
               />
             </div>
             <div className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full bg-[var(--color-green)] border-2 border-white flex items-center justify-center">

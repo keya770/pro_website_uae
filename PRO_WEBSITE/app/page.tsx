@@ -9,6 +9,7 @@ import FAQAccordion from "@/components/faq-accordion";
 import TestimonialCard from "@/components/testimonial-card";
 import { faqItems, featureHighlights, processSteps, testimonialItems } from "@/lib/content";
 import { services } from "@/lib/services";
+import { siteBaseUrl, withBasePath, withBaseUrl } from "@/lib/withBasePath";
 import {
   BriefcaseIcon,
   ShieldCheckIcon,
@@ -18,21 +19,23 @@ import {
   ArrowTrendingUpIcon,
 } from "@heroicons/react/24/outline";
 
+const homeOgImage = withBaseUrl("/standard-quality-control-collage-concept.jpg");
+
 export const metadata: Metadata = {
   title: "UAE PRO Services, Visa & Business Setup | Dubai Mainland & Freezone Experts",
   description:
     "UAE PRO services, freelance visa UAE, employment visa Dubai, fine waiver help, and Dubai business setup by AL HASEL Consultancy (HCT Services).",
-  alternates: { canonical: "https://example.ae" },
+  alternates: { canonical: siteBaseUrl },
   openGraph: {
     title: "UAE PRO Services, Visa & Business Setup | Dubai Mainland & Freezone Experts",
     description:
       "End-to-end UAE PRO services, Dubai business setup, 2-year freelance visa UAE support, and employment visa processing across the UAE.",
-    url: "https://example.ae",
+    url: siteBaseUrl,
     type: "website",
     siteName: "HCT Services | AL HASEL Consultancy Services LLC",
     images: [
       {
-        url: "https://example.ae/og-image.jpg",
+        url: homeOgImage,
         width: 1200,
         height: 630,
         alt: "UAE PRO services and Dubai business setup by HCT Services",
@@ -44,12 +47,13 @@ export const metadata: Metadata = {
     title: "UAE PRO Services, Visa & Business Setup | Dubai Mainland & Freezone Experts",
     description:
       "Freelance visa UAE, employment visa Dubai, and Dubai business setup with fast PRO services by AL HASEL Consultancy (HCT Services).",
-    images: ["https://example.ae/og-image.jpg"],
+    images: [homeOgImage],
   },
 };
 
 const serviceIcons = [BriefcaseIcon, ShieldCheckIcon, ClockIcon, UserGroupIcon, SparklesIcon];
 const featureIcons = [ShieldCheckIcon, SparklesIcon, ClockIcon, UserGroupIcon];
+const serviceImage = withBasePath("/medium-shot-smiley-business-man.jpg");
 
 export default function Home() {
   const faqJsonLd = {
@@ -124,7 +128,7 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/medium-shot-smiley-business-man.jpg"
+            src={serviceImage}
             alt="Why Choose Us"
             fill
             className="object-cover opacity-20"
@@ -273,7 +277,7 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/medium-shot-smiley-business-man.jpg"
+            src={serviceImage}
             alt="Dubai Business Setup"
             fill
             className="object-cover opacity-20"
@@ -342,7 +346,7 @@ export default function Home() {
               <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl shadow-black/30 group">
                 <div className="relative h-80 sm:h-96 overflow-hidden">
                   <Image
-                    src="/medium-shot-smiley-business-man.jpg"
+                    src={serviceImage}
                     alt="Business Setup Services"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -454,11 +458,11 @@ export default function Home() {
                     </div>
                     <div>
                       <div className="text-sm font-semibold text-[var(--color-charcoal)]">Have more questions?</div>
-                      <div className="text-xs text-[var(--color-charcoal-light)]">We're here to help</div>
+                      <div className="text-xs text-[var(--color-charcoal-light)]">We&apos;re here to help</div>
                     </div>
                   </div>
                   <p className="text-sm text-[var(--color-charcoal-light)] leading-relaxed mb-4">
-                    Can't find what you're looking for? Our team is ready to answer any questions about our services.
+                    Can&apos;t find what you&apos;re looking for? Our team is ready to answer any questions about our services.
                   </p>
                   <Link
                     href="/contact"

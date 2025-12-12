@@ -2,27 +2,31 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/contact-form";
 import SectionTitle from "@/components/section-title";
+import { withBaseUrl } from "@/lib/withBasePath";
+
+const contactUrl = withBaseUrl("/contact");
+const contactOgImage = withBaseUrl("/standard-quality-control-collage-concept.jpg");
 
 export const metadata: Metadata = {
   title: "Contact HCT Services | UAE PRO, Visa & Dubai Business Setup Consultation",
   description:
     "Call +971 54 542 0537 or email haselconsultancy@gmail.com for UAE PRO services, freelance visa UAE, employment visa Dubai, fine waiver help, and business setup support.",
-  alternates: { canonical: "https://example.ae/contact" },
+  alternates: { canonical: contactUrl },
   openGraph: {
     title: "Contact HCT Services | UAE PRO, Visa & Dubai Business Setup Consultation",
     description:
       "Reach AL HASEL Consultancy (HCT Services) for UAE PRO services, Dubai business setup, freelance visa UAE, and employment visa Dubai guidance.",
-    url: "https://example.ae/contact",
+    url: contactUrl,
     type: "website",
     siteName: "HCT Services | AL HASEL Consultancy Services LLC",
-    images: [{ url: "https://example.ae/og-image.jpg", width: 1200, height: 630, alt: "Contact HCT Services Dubai" }],
+    images: [{ url: contactOgImage, width: 1200, height: 630, alt: "Contact HCT Services Dubai" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact HCT Services | UAE PRO, Visa & Dubai Business Setup Consultation",
     description:
       "Talk to HCT Services for UAE PRO services, freelance visa UAE, employment visa Dubai, fine waiver help, and business setup support.",
-    images: ["https://example.ae/og-image.jpg"],
+    images: [contactOgImage],
   },
 };
 

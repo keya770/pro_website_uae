@@ -5,23 +5,27 @@ import Script from "next/script";
 import SectionTitle from "@/components/section-title";
 import { services } from "@/lib/services";
 import { ShieldCheckIcon, DocumentCheckIcon, ClockIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { siteBaseUrl, withBasePath, withBaseUrl } from "@/lib/withBasePath";
 
-const logo = "/pro_logo.png";
+const logo = withBasePath("/pro_logo.png");
+const serviceImage = withBasePath("/medium-shot-smiley-business-man.jpg");
+const servicesUrl = withBaseUrl("/services");
+const servicesOgImage = withBaseUrl("/standard-quality-control-collage-concept.jpg");
 
 export const metadata: Metadata = {
   title: "UAE PRO & Visa Services | Corporate PRO Support & Documentation in Dubai",
   description:
     "Explore UAE PRO services, corporate PRO support, 2-year freelance visa UAE, employment visa Dubai, fine waiver help, and business setup across Dubai mainland and freezones.",
-  alternates: { canonical: "https://example.ae/services" },
+  alternates: { canonical: servicesUrl },
   openGraph: {
     title: "UAE PRO & Visa Services | Corporate PRO Support & Documentation in Dubai",
     description:
       "Full catalogue of UAE PRO services, Dubai business setup, freelance visa UAE, employment visa Dubai, and fine waiver assistance with transparent pricing.",
-    url: "https://example.ae/services",
+    url: servicesUrl,
     type: "website",
     siteName: "HCT Services | AL HASEL Consultancy Services LLC",
     images: [
-      { url: "https://example.ae/og-image.jpg", width: 1200, height: 630, alt: "UAE PRO services catalog in Dubai" },
+      { url: servicesOgImage, width: 1200, height: 630, alt: "UAE PRO services catalog in Dubai" },
     ],
   },
   twitter: {
@@ -29,7 +33,7 @@ export const metadata: Metadata = {
     title: "UAE PRO & Visa Services | Corporate PRO Support & Documentation in Dubai",
     description:
       "Corporate PRO support, freelance visa UAE, employment visa Dubai, and Dubai business setup services by AL HASEL Consultancy (HCT Services).",
-    images: ["https://example.ae/og-image.jpg"],
+    images: [servicesOgImage],
   },
 };
 
@@ -38,8 +42,8 @@ const ServicesPage = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://example.ae" },
-      { "@type": "ListItem", position: 2, name: "Services", item: "https://example.ae/services" },
+      { "@type": "ListItem", position: 1, name: "Home", item: siteBaseUrl },
+      { "@type": "ListItem", position: 2, name: "Services", item: servicesUrl },
     ],
   };
 
@@ -111,7 +115,7 @@ const ServicesPage = () => {
               {/* Service Image */}
               <div className="relative h-32 w-full rounded-xl overflow-hidden mb-2">
                 <Image 
-                  src="/medium-shot-smiley-business-man.jpg"
+                  src={serviceImage}
                   alt={service.name}
                   fill
                   className="object-cover"

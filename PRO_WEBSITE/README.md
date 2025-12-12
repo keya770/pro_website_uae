@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## GitHub Pages base path
+
+- The site is served from `/pro_website_uae` on GitHub Pages. Public assets and Open Graph images must include that base path.
+- Use `withBasePath("/asset.ext")` for any public image path and `withBaseUrl("/page")` for absolute URLs.
+- `NEXT_PUBLIC_BASE_PATH` is set in `next.config.ts` and injected into a `--base-path` CSS variable for any `url(var(--base-path)/...)` needs.
+
 ## Getting Started
 
 First, run the development server:

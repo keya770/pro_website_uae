@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
-import logo from "@/public/pro_logo.png";
+import { withBasePath } from "@/lib/withBasePath";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -17,6 +17,7 @@ const navLinks = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const logo = withBasePath("/pro_logo.png");
 
   const isActive = (href: string) =>
     href === "/"

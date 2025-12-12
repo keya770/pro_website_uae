@@ -4,6 +4,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import BasePathStyle from "@/components/base-path-style";
+import { basePathValue, siteBaseUrl, siteOriginValue, withBasePath, withBaseUrl } from "@/lib/withBasePath";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,9 +14,9 @@ const poppins = Poppins({
 });
 
 const siteName = "HCT Services | AL HASEL Consultancy Services LLC";
-const siteUrl = "https://example.ae";
-const logoPath = "/pro_logo.png";
-const defaultOgImage = `${siteUrl}${logoPath}`;
+const siteUrl = siteBaseUrl;
+const logoPath = withBasePath("/pro_logo.png");
+const defaultOgImage = withBaseUrl("/pro_logo.png");
 const siteTitle = "UAE PRO Services, Visa & Business Setup | Dubai Mainland & Freezone Experts";
 const siteDescription =
   "UAE PRO services, freelance visa UAE, employment visa Dubai, and Dubai business setup by AL HASEL Consultancy (HCT Services) with fast, reliable support.";
@@ -22,7 +24,7 @@ const siteDescription =
 export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteOriginValue),
   alternates: { canonical: siteUrl },
   icons: { icon: logoPath, apple: logoPath },
   openGraph: {
@@ -54,8 +56,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-base-path={basePathValue}>
       <body className={`${poppins.variable} antialiased bg-slate-50 text-slate-900`}>
+        <Script id="set-base-path-var" strategy="beforeInteractive">
+          {`document.documentElement.style.setProperty('--base-path','${basePathValue}');document.documentElement.dataset.basePath='${basePathValue}';`}
+        </Script>
+        <BasePathStyle basePath={basePathValue} />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-1">{children}</main>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { withBasePath } from "@/lib/withBasePath";
 
 type CTA = { label: string; href: string; variant?: "primary" | "ghost" };
 
@@ -17,7 +18,7 @@ const Hero = ({ title, subtitle, primaryCta, secondaryCta, highlights = [] }: Pr
       {/* Background Image with parallax effect */}
       <div className="absolute inset-0">
         <Image
-          src="/standard-quality-control-collage-concept.jpg"
+          src={withBasePath("/standard-quality-control-collage-concept.jpg")}
           alt="UAE PRO Services Background"
           fill
           className="object-cover scale-105 transition-transform duration-700 ease-out"
@@ -108,7 +109,7 @@ const Hero = ({ title, subtitle, primaryCta, secondaryCta, highlights = [] }: Pr
               {/* Animated background logo */}
               <div className="absolute right-0 top-0 w-40 h-40 opacity-10 animate-[floaty_8s_ease-in-out_infinite]">
                 <Image
-                  src="/pro_logo.png"
+                  src={withBasePath("/pro_logo.png")}
                   alt=""
                   width={160}
                   height={160}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import type { Service } from "@/lib/services";
+import { withBasePath } from "@/lib/withBasePath";
 
 type Props = {
   service: Pick<Service, "name" | "shortDescription" | "slug" | "tagline">;
@@ -17,7 +18,7 @@ const ServiceCard = ({ service, icon }: Props) => {
       {/* Service image - larger and more prominent */}
       <div className="relative h-48 w-full overflow-hidden">
         <Image
-          src="/medium-shot-smiley-business-man.jpg"
+          src={withBasePath("/medium-shot-smiley-business-man.jpg")}
           alt={service.name}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110"

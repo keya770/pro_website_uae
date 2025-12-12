@@ -1,17 +1,16 @@
-export const dynamic = "force-static";
-
 import { services } from "@/lib/services";
+import { withBaseUrl } from "@/lib/withBasePath";
 
-const siteUrl = "https://example.ae";
+export const dynamic = "force-static";
 
 export default function sitemap() {
   const baseRoutes = ["", "/services", "/about", "/contact"].map((path) => ({
-    url: `${siteUrl}${path || "/"}`,
+    url: withBaseUrl(path || "/"),
     lastModified: new Date().toISOString(),
   }));
 
   const serviceRoutes = services.map((service) => ({
-    url: `${siteUrl}/services/${service.slug}`,
+    url: withBaseUrl(`/services/${service.slug}`),
     lastModified: new Date().toISOString(),
   }));
 

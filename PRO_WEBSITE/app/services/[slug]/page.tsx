@@ -7,8 +7,11 @@ import SectionTitle from "@/components/section-title";
 import ServiceEnquiryForm from "@/components/service-enquiry-form";
 import { getServiceBySlug, services } from "@/lib/services";
 import { ShieldCheckIcon, ClockIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { siteBaseUrl, withBasePath, withBaseUrl } from "@/lib/withBasePath";
 
-const logo = "/pro_logo.png";
+const logo = withBasePath("/pro_logo.png");
+const serviceImage = withBasePath("/medium-shot-smiley-business-man.jpg");
+const serviceOgImage = withBaseUrl("/standard-quality-control-collage-concept.jpg");
 
 export async function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
@@ -22,21 +25,23 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     };
   }
 
+  const canonicalUrl = withBaseUrl(`/services/${service.slug}`);
+
   return {
     title: service.metaTitle,
     description: service.metaDescription,
     alternates: {
-      canonical: `https://example.ae/services/${service.slug}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title: service.metaTitle,
       description: service.metaDescription,
-      url: `https://example.ae/services/${service.slug}`,
+      url: canonicalUrl,
       type: "article",
       siteName: "HCT Services | AL HASEL Consultancy Services LLC",
       images: [
         {
-          url: "https://example.ae/og-image.jpg",
+          url: serviceOgImage,
           width: 1200,
           height: 630,
           alt: `${service.name} UAE PRO services`,
@@ -47,7 +52,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       card: "summary_large_image",
       title: service.metaTitle,
       description: service.metaDescription,
-      images: ["https://example.ae/og-image.jpg"],
+      images: [serviceOgImage],
     },
   };
 }
@@ -65,13 +70,13 @@ const ServicePage = ({ params }: { params: { slug: string } }) => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://example.ae" },
-      { "@type": "ListItem", position: 2, name: "Services", item: "https://example.ae/services" },
+      { "@type": "ListItem", position: 1, name: "Home", item: siteBaseUrl },
+      { "@type": "ListItem", position: 2, name: "Services", item: withBaseUrl("/services") },
       {
         "@type": "ListItem",
         position: 3,
         name: currentService.name,
-        item: `https://example.ae/services/${currentService.slug}`,
+        item: withBaseUrl(`/services/${currentService.slug}`),
       },
     ],
   };
@@ -133,7 +138,7 @@ const ServicePage = ({ params }: { params: { slug: string } }) => {
             {/* Service Image */}
             <div className="relative h-64 w-full rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
               <Image 
-                src="/medium-shot-smiley-business-man.jpg"
+                src={serviceImage}
                 alt={currentService.name}
                 fill
                 className="object-cover"

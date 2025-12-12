@@ -2,27 +2,31 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SectionTitle from "@/components/section-title";
 import { ShieldCheckIcon, BoltIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { withBaseUrl } from "@/lib/withBasePath";
+
+const aboutUrl = withBaseUrl("/about");
+const aboutOgImage = withBaseUrl("/standard-quality-control-collage-concept.jpg");
 
 export const metadata: Metadata = {
   title: "About HCT Services | UAE PRO, Visa & Dubai Business Setup Specialists",
   description:
     "Meet AL HASEL Consultancy (HCT Services) — experts in UAE PRO services, Dubai business setup, freelance visa UAE, and employment visa Dubai support.",
-  alternates: { canonical: "https://example.ae/about" },
+  alternates: { canonical: aboutUrl },
   openGraph: {
     title: "About HCT Services | UAE PRO, Visa & Dubai Business Setup Specialists",
     description:
       "HCT Services delivers fast, reliable UAE PRO services, freelance visas, employment visas, and Dubai business setup with concierge-style support.",
-    url: "https://example.ae/about",
+    url: aboutUrl,
     type: "profile",
     siteName: "HCT Services | AL HASEL Consultancy Services LLC",
-    images: [{ url: "https://example.ae/og-image.jpg", width: 1200, height: 630, alt: "About HCT Services team in Dubai" }],
+    images: [{ url: aboutOgImage, width: 1200, height: 630, alt: "About HCT Services team in Dubai" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About HCT Services | UAE PRO, Visa & Dubai Business Setup Specialists",
     description:
       "Dubai-based PRO services, freelance visa UAE, employment visa Dubai, and business setup experts at AL HASEL Consultancy (HCT Services).",
-    images: ["https://example.ae/og-image.jpg"],
+    images: [aboutOgImage],
   },
 };
 

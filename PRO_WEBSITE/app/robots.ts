@@ -1,6 +1,8 @@
+import { withBaseUrl } from "@/lib/withBasePath";
+
 export const dynamic = "force-static";
 
-const siteUrl = "https://example.ae";
+const siteUrl = withBaseUrl("/");
 
 export default function robots() {
   return {
